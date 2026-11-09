@@ -1,0 +1,62 @@
+<mxfile host="app.diagrams.net" modified="2026-11-09T18:00:00.000Z" agent="OpenCode" version="24.7.17">
+  <diagram id="act3-arquitectura" name="Arquitectura Actividad 3">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="760" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="Arquitectura segura de la Actividad 3" style="text;html=1;align=left;verticalAlign=middle;fontSize=24;fontStyle=1;fontColor=#e8eef8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="40" width="600" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="client" value="Navegador&#xa;HTML · CSS · JS&#xa;sessionStorage + Bearer token" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f172a;strokeColor=#5aa9ff;fontColor=#e8eef8;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="250" width="210" height="140" as="geometry" />
+        </mxCell>
+
+        <mxCell id="api" value="API Express (Node.js)&#xa;&#xa;POST /api/login → JWT HS256&#xa;authenticate() → firma + expiración&#xa;requireRole('admin') → 403&#xa;GET /api/admin → 401 sin token" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#10233d;strokeColor=#45e0b7;fontColor=#e8eef8;align=left;verticalAlign=top;spacing=14;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="210" width="360" height="260" as="geometry" />
+        </mxCell>
+
+        <mxCell id="s3" value="Bucket S3 privado&#xa;actividad3-seguro-local&#xa;&#xa;SSE-S3 · AES256&#xa;Block Public Access × 4&#xa;ACL solo propietario" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f2a25;strokeColor=#45e0b7;fontColor=#e8eef8;align=left;verticalAlign=top;spacing=14;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="840" y="230" width="290" height="200" as="geometry" />
+        </mxCell>
+
+        <mxCell id="iam" value="Rol IAM&#xa;mínimo privilegio&#xa;s3:GetObject · s3:ListBucket" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#101a2b;strokeColor=#5aa9ff;fontColor=#e8eef8;align=left;verticalAlign=top;spacing=12;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="360" y="560" width="240" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="trivy" value="CI/CD · Trivy&#xa;imagen node:18-alpine&#xa;0 CRITICAL · 0 HIGH" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#101a2b;strokeColor=#45e0b7;fontColor=#e8eef8;align=left;verticalAlign=top;spacing=12;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="640" y="560" width="220" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="zap" value="OWASP ZAP&#xa;baseline scan&#xa;0 FAIL · 3 WARN · 65 PASS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#101a2b;strokeColor=#ffc857;fontColor=#e8eef8;align=left;verticalAlign=top;spacing=12;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="900" y="560" width="230" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="trust" value="Frontera de confianza" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#5aa9ff;dashed=1;fontColor=#5aa9ff;verticalAlign=top;align=left;spacing=8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="330" y="170" width="430" height="330" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" value="HTTPS + JWT" style="endArrow=block;html=1;strokeColor=#45e0b7;fontColor=#8fa2bd;fontSize=10;" edge="1" parent="1" source="client" target="api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e2" value="s3:GetObject" style="endArrow=block;html=1;strokeColor=#45e0b7;fontColor=#8fa2bd;fontSize=10;" edge="1" parent="1" source="api" target="s3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e3" value="permisos mínimos" style="endArrow=block;html=1;dashed=1;strokeColor=#5aa9ff;fontColor=#8fa2bd;fontSize=10;" edge="1" parent="1" source="iam" target="api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e4" value="escanea imagen" style="endArrow=block;html=1;dashed=1;strokeColor=#45e0b7;fontColor=#8fa2bd;fontSize=10;" edge="1" parent="1" source="trivy" target="api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e5" value="pruebas de seguridad" style="endArrow=block;html=1;dashed=1;strokeColor=#ffc857;fontColor=#8fa2bd;fontSize=10;" edge="1" parent="1" source="zap" target="api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

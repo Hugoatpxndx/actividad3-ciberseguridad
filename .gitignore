@@ -1,0 +1,33 @@
+# Secretos
+.env
+**/.env
+**/.env.local
+
+# Terraform
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.*
+**/tfplan
+**/*.tfplan
+**/crash.log
+**/*.tfvars
+
+# LocalStack
+**/.localstack/
+
+# Node
+**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos temporales del laboratorio
+fase1/archivo-prueba.txt
+fase1/tfplan
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Material de la materia: no se publica en el repositorio
+Práctica_ Bucket S3 seguro con Terraform + LocalStack.html

@@ -1,0 +1,3 @@
+Completed 36 Bytes/36 Bytes (1.3 KiB/s) with 1 file(s) remainingupload: ./archivo-prueba.txt to s3://actividad3-seguro-local/archivo-prueba.txt
+== listado de objetos ==
+2026-11-08 16:27:12         36 archivo-prueba.txt

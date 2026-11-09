@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-label="Comparación de vulnerabilidades antes y después de Trivy">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070b12"/>
+      <stop offset="1" stop-color="#0c1524"/>
+    </linearGradient>
+    <linearGradient id="bad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff6b81"/>
+      <stop offset="1" stop-color="#ffc857"/>
+    </linearGradient>
+    <linearGradient id="good" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#45e0b7"/>
+      <stop offset="1" stop-color="#5aa9ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="360" fill="url(#bg)"/>
+  <g opacity="0.16" stroke="#5aa9ff">
+    <path d="M0 90 H960 M0 180 H960 M0 270 H960"/>
+    <path d="M80 0 V360 M160 0 V360 M240 0 V360 M320 0 V360 M400 0 V360 M480 0 V360 M560 0 V360 M640 0 V360 M720 0 V360 M800 0 V360 M880 0 V360"/>
+  </g>
+
+  <text x="40" y="46" fill="#45e0b7" font-family="ui-monospace, monospace" font-size="12" font-weight="700" letter-spacing="2">FASE 2 · TRIVY</text>
+  <text x="40" y="78" fill="#e8eef8" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="800">Vulnerabilidades antes y después</text>
+
+  <text x="40" y="135" fill="#ffb2bd" font-family="ui-monospace, monospace" font-size="13">node:14</text>
+  <rect x="140" y="112" width="620" height="34" rx="10" fill="#1a1118" stroke="#ff6b81" stroke-opacity="0.4"/>
+  <rect x="140" y="112" width="620" height="34" rx="10" fill="url(#bad)" opacity="0.9"/>
+  <text x="780" y="135" fill="#ffb2bd" font-family="ui-monospace, monospace" font-size="13">595 hallazgos · 23 críticas</text>
+
+  <text x="40" y="215" fill="#b9e9dc" font-family="ui-monospace, monospace" font-size="13">node:18-alpine</text>
+  <rect x="140" y="192" width="620" height="34" rx="10" fill="#0a1c19" stroke="#45e0b7" stroke-opacity="0.4"/>
+  <rect x="140" y="192" width="8" height="34" rx="4" fill="url(#good)"/>
+  <text x="780" y="215" fill="#45e0b7" font-family="ui-monospace, monospace" font-size="13">0 hallazgos · 0 críticas</text>
+
+  <g font-family="ui-monospace, monospace" font-size="11" fill="#8fa2bd">
+    <text x="140" y="275">Mitigación: node:18-alpine · apk upgrade · multi-stage · sin npm/npx · USER node</text>
+    <text x="140" y="300">Reportes: fase2/evidencias/trivy-node14.txt · trivy-node18.txt</text>
+  </g>
+</svg>

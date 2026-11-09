@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Actividad 3 · Informe</title>
+  <style>
+    :root {
+      --ink: #101828;
+      --muted: #5b6b82;
+      --line: #d9e2ef;
+      --soft: #f3f7fc;
+      --accent: #0f766e;
+      --accent-2: #1d4ed8;
+      --danger: #b42318;
+      --warn: #b54708;
+      --ok: #067647;
+    }
+    * { box-sizing: border-box; }
+    html { background: #e8eef6; }
+    body {
+      margin: 0 auto;
+      max-width: 980px;
+      padding: 32px;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+      background: white;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    h1, h2, h3 { line-height: 1.15; letter-spacing: -0.02em; }
+    h1 { margin: 0 0 10px; font-size: 40px; }
+    h2 {
+      margin: 42px 0 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--line);
+      font-size: 24px;
+    }
+    h3 { margin: 24px 0 10px; font-size: 17px; }
+    p { margin: 10px 0; }
+    a { color: var(--accent-2); text-decoration: none; }
+    code {
+      padding: 2px 6px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      color: #0f4c46;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      background: #f2fbf9;
+    }
+    pre {
+      padding: 16px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: #d7e7ff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.55;
+      background: #0b1220;
+    }
+    pre code { padding: 0; border: 0; color: inherit; background: none; }
+    table {
+      width: 100%;
+      margin: 14px 0 18px;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: #344054; background: var(--soft); }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    img { max-width: 100%; height: auto; border-radius: 14px; }
+    .cover {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 28px;
+      align-items: center;
+      min-height: 560px;
+      padding: 34px;
+      border-radius: 24px;
+      color: #e8eef8;
+      background:
+        radial-gradient(700px 340px at 90% 0%, rgba(90, 169, 255, 0.24), transparent 60%),
+        radial-gradient(520px 320px at 0% 100%, rgba(69, 224, 183, 0.18), transparent 60%),
+        #070b12;
+    }
+    .cover h1 { color: #ffffff; font-size: 44px; }
+    .cover p { color: #a9b8cd; }
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #45e0b7;
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .meta {
+      display: grid;
+      gap: 8px;
+      margin-top: 24px;
+      font-size: 14px;
+    }
+    .meta span { color: #8fa2bd; }
+    .pill {
+      display: inline-block;
+      margin: 4px 6px 0 0;
+      padding: 5px 10px;
+      border: 1px solid rgba(69, 224, 183, 0.35);
+      border-radius: 999px;
+      color: #b9e9dc;
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      background: rgba(69, 224, 183, 0.08);
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 18px 0;
+    }
+    .summary article {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--soft);
+    }
+    .summary strong { display: block; margin-bottom: 6px; font-size: 14px; }
+    .summary span { color: var(--muted); font-size: 13px; }
+    .note {
+      margin: 16px 0;
+      padding: 14px 16px;
+      border-left: 4px solid var(--warn);
+      border-radius: 0 10px 10px 0;
+      background: #fffaeb;
+      font-size: 14px;
+    }
+    .ok { color: var(--ok); font-weight: 700; }
+    .bad { color: var(--danger); font-weight: 700; }
+    .warn { color: var(--warn); font-weight: 700; }
+    .shots {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin: 18px 0;
+    }
+    .shots img { border: 1px solid var(--line); box-shadow: 0 16px 40px rgba(16, 24, 40, 0.12); }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .small { color: var(--muted); font-size: 13px; }
+    .page-break { page-break-before: always; }
+    footer {
+      margin-top: 48px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    @media print {
+      @page { size: A4; margin: 12mm; }
+      html, body { background: white; }
+      body { max-width: none; padding: 0; font-size: 11.5px; }
+      h2 { margin-top: 26px; }
+      .cover { min-height: 250mm; border-radius: 0; }
+      .page-break { page-break-before: always; }
+      pre { font-size: 9.5px; }
+      table { font-size: 10.5px; }
+      img { max-height: 190mm; object-fit: contain; }
+    }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <div>
+      <p class="eyebrow">Actividad 3 · Ciberseguridad</p>
+      <h1>Seguridad en la nube, contenedores y APIs</h1>
+      <p>Laboratorio de infraestructura como código, análisis de imágenes y autenticación JWT con verificación de seguridad.</p>
+      <div>
+        <span class="pill">Terraform</span>
+        <span class="pill">LocalStack</span>
+        <span class="pill">Docker</span>
+        <span class="pill">Trivy</span>
+        <span class="pill">JWT</span>
+        <span class="pill">OWASP ZAP</span>
+      </div>
+      <div class="meta">
+        <div><span>Alumno:</span> Hugo Ruiz</div>
+        <div><span>Materia:</span> Ciberseguridad</div>
+        <div><span>Fecha:</span> noviembre de 2026</div>
+      </div>
+    </div>
+    <div>
+      <img src="arquitectura.svg" alt="Arquitectura de la solución">
+    </div>
+  </section>
+
+  <h2>Resumen visual</h2>
+  <div class="summary">
+    <article>
+      <strong>Fase 1 · S3 seguro</strong>
+      <span>3 recursos Terraform · AES-256 · 4/4 bloqueos públicos · ACL privada</span>
+    </article>
+    <article>
+      <strong>Fase 2 · Contenedores</strong>
+      <span>595 hallazgos y 23 críticas en <code>node:14</code> → <strong>0 / 0</strong> en <code>node:18-alpine</code></span>
+    </article>
+    <article>
+      <strong>Fase 3 · API + sitio</strong>
+      <span>JWT HS256 · 401 sin token · 403 sin rol · 200 con admin · ZAP 0 FAIL</span>
+    </article>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>Fase</th><th>Tema</th><th>Herramientas</th><th>Resultado clave</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>Infraestructura como código</td><td>Terraform · LocalStack · AWS CLI</td><td class="ok">Bucket privado, AES-256, 4/4 bloqueos</td></tr>
+      <tr><td>2</td><td>Seguridad de contenedores</td><td>Docker · Trivy</td><td class="ok">595 hallazgos → 0</td></tr>
+      <tr><td>3</td><td>Desarrollo seguro y autenticación</td><td>Node.js · Express · JWT · OWASP ZAP</td><td class="ok">401 / 403 / 200 · 0 FAIL</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="page-break">Fase 1 · Bucket S3 seguro</h2>
+  <img src="fase1-controles.svg" alt="Controles del bucket S3">
+
+  <h3>Recursos declarados</h3>
+  <table>
+    <thead><tr><th>Recurso</th><th>Configuración</th></tr></thead>
+    <tbody>
+      <tr><td><code>aws_s3_bucket</code></td><td><code>actividad3-seguro-local</code></td></tr>
+      <tr><td><code>aws_s3_bucket_server_side_encryption_configuration</code></td><td><code>SSEAlgorithm = AES256</code></td></tr>
+      <tr><td><code>aws_s3_bucket_public_access_block</code></td><td>4 controles en <code>true</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Verificación real</h3>
+  <table>
+    <thead><tr><th>Consulta</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td><code>terraform apply</code></td><td class="ok">3 added, 0 changed, 0 destroyed</td></tr>
+      <tr><td><code>get-bucket-encryption</code></td><td class="ok">"SSEAlgorithm": "AES256"</td></tr>
+      <tr><td><code>get-public-access-block</code></td><td class="ok">4/4 en true</td></tr>
+      <tr><td><code>get-bucket-acl</code></td><td class="ok">Solo propietario con FULL_CONTROL</td></tr>
+      <tr><td><code>get-bucket-policy-status</code></td><td>NoSuchBucketPolicy</td></tr>
+      <tr><td>Segundo <code>terraform plan</code></td><td class="ok">No changes</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note">
+    <strong>Lectura importante:</strong> <code>NoSuchBucketPolicy</code> solo indica que no hay una política de bucket adjunta. No significa que el bucket sea público. La privacidad se sostiene con la ACL privada y los cuatro bloqueos.
+  </div>
+
+  <h3>Acceso anónimo en LocalStack</h3>
+  <pre><code>HTTP/1.1 200 OK
+x-amz-server-side-encryption: AES256</code></pre>
+  <p>LocalStack permitió la lectura anónima. Es una <strong>limitación del simulador</strong>: no replica todas las reglas de autorización de AWS. La respuesta confirma que el objeto está cifrado con AES-256. En AWS real, con los cuatro bloqueos activos y sin política pública, la lectura anónima se deniega.</p>
+
+  <h2 class="page-break">Fase 2 · Seguridad de contenedores</h2>
+  <img src="fase2-trivy.svg" alt="Comparación de vulnerabilidades">
+
+  <table>
+    <thead>
+      <tr><th>Imagen</th><th class="num">SO</th><th class="num">Node/npm</th><th class="num">Total</th><th class="num">Críticas</th><th class="num">Altas</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>act3-app:node14</code></td><td class="num">566</td><td class="num">29</td><td class="num">595</td><td class="num bad">23</td><td class="num">572</td></tr>
+      <tr><td><code>act3-app:node18</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num ok">0</td><td class="num ok">0</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Mitigaciones aplicadas</h3>
+  <table>
+    <thead><tr><th>Medida</th><th>Efecto</th></tr></thead>
+    <tbody>
+      <tr><td><code>node:14</code> → <code>node:18-alpine</code></td><td>Base más reciente y menor superficie</td></tr>
+      <tr><td><code>apk upgrade --no-cache</code></td><td>Corrige OpenSSL y zlib del sistema</td></tr>
+      <tr><td>Build multi-stage</td><td>Solo pasan a la imagen final las dependencias de producción</td></tr>
+      <tr><td>Eliminar <code>npm</code>, <code>npx</code> y <code>corepack</code></td><td>Quita del runtime paquetes vulnerables que la app no necesita</td></tr>
+      <tr><td><code>USER node</code></td><td>La aplicación no corre como root</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Dockerfile final</h3>
+  <pre><code>FROM node:18-alpine AS deps
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+FROM node:18-alpine
+RUN apk upgrade --no-cache \
+    &amp;&amp; rm -rf /usr/local/lib/node_modules/npm \
+              /usr/local/lib/node_modules/corepack \
+              /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY package.json server.js ./
+ENV NODE_ENV=production
+USER node
+CMD ["node", "server.js"]</code></pre>
+
+  <div class="note">
+    La actividad pide <code>node:18</code>. A noviembre de 2026 Node 18 ya está fuera de soporte; para un proyecto real se recomienda <code>node:22-alpine</code> o superior.
+  </div>
+
+  <h2 class="page-break">Fase 3 · Sitio y API con JWT</h2>
+  <div class="shots">
+    <img src="capturas/01-login.png" alt="Pantalla de login">
+    <img src="capturas/02-dashboard.png" alt="Panel con token JWT">
+    <img src="capturas/03-prueba-admin.png" alt="Prueba del endpoint de administración">
+  </div>
+
+  <h3>Matriz de autorización</h3>
+  <table>
+    <thead><tr><th>Prueba</th><th class="num">Código</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td><code>GET /api/admin</code> sin token</td><td class="num">401</td><td class="ok">Correcto</td></tr>
+      <tr><td><code>GET /api/admin</code> con token inválido</td><td class="num">401</td><td class="ok">Correcto</td></tr>
+      <tr><td><code>GET /api/admin</code> con token de <code>usuario</code></td><td class="num">403</td><td class="ok">Correcto</td></tr>
+      <tr><td><code>GET /api/admin</code> con token de <code>admin</code></td><td class="num">200</td><td class="ok">Correcto</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Middleware JWT</h3>
+  <pre><code>function authenticate(req, res, next) {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Token requerido' });
+  }
+
+  const token = authHeader.slice(7).trim();
+
+  try {
+    req.user = jwt.verify(token, JWT_SECRET, {
+      algorithms: ['HS256'],
+      issuer: 'act3-api',
+      audience: 'act3-web'
+    });
+    return next();
+  } catch (error) {
+    return res.status(401).json({ error: 'Token inválido o expirado' });
+  }
+}
+
+function requireRole(role) {
+  return (req, res, next) => {
+    if (!req.user || req.user.role !== role) {
+      return res.status(403).json({ error: 'Acceso denegado' });
+    }
+    return next();
+  };
+}</code></pre>
+
+  <h3>OWASP ZAP</h3>
+  <table>
+    <thead><tr><th>Métrica</th><th class="num">Valor</th></tr></thead>
+    <tbody>
+      <tr><td>FAIL</td><td class="num ok">0</td></tr>
+      <tr><td>WARN</td><td class="num warn">3</td></tr>
+      <tr><td>PASS</td><td class="num">65</td></tr>
+    </tbody>
+  </table>
+  <p>Las 3 advertencias son de bajo riesgo: contenido no almacenable, formulario de login detectado (esperado) y ausencia de token anti-CSRF. La API usa JSON + <code>Authorization: Bearer</code>, por lo que el riesgo CSRF es bajo. Se documenta como mejora.</p>
+
+  <h3>Política IAM de mínimo privilegio</h3>
+  <pre><code>{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LeerObjetosDelBucket",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject"],
+      "Resource": "arn:aws:s3:::actividad3-seguro-local/*"
+    },
+    {
+      "Sid": "ListarSoloEseBucket",
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": "arn:aws:s3:::actividad3-seguro-local"
+    }
+  ]
+}</code></pre>
+
+  <h2>Conclusiones</h2>
+  <table>
+    <thead><tr><th>Aprendizaje</th><th>Aplicación</th></tr></thead>
+    <tbody>
+      <tr><td>IaC permite repetir y auditar la infraestructura</td><td>Terraform declara bucket, cifrado y bloqueos</td></tr>
+      <tr><td>La configuración declarada no siempre es la efectiva</td><td>Se verificó con AWS CLI y se documentó la limitación de LocalStack</td></tr>
+      <tr><td>Las imágenes obsoletas acumulan vulnerabilidades</td><td><code>node:14</code> tenía 595 hallazgos; la imagen corregida, 0</td></tr>
+      <tr><td>Autenticación no es lo mismo que autorización</td><td><code>401</code> sin token, <code>403</code> con token sin rol</td></tr>
+      <tr><td>El mínimo privilegio reduce el impacto</td><td>IAM solo permite <code>s3:GetObject</code> y <code>s3:ListBucket</code></td></tr>
+      <tr><td>Las pruebas automatizadas complementan el análisis</td><td>ZAP: 0 FAIL; pruebas manuales: 401/403/200</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Evidencias y anexos</h2>
+  <table>
+    <thead><tr><th>Anexo</th><th>Ubicación</th></tr></thead>
+    <tbody>
+      <tr><td>Scripts Terraform</td><td><code>fase1/</code></td></tr>
+      <tr><td>Reportes Trivy</td><td><code>fase2/evidencias/</code></td></tr>
+      <tr><td>Código de la API</td><td><code>fase3/server.js</code></td></tr>
+      <tr><td>Política IAM</td><td><code>fase3/iam-policy.json</code></td></tr>
+      <tr><td>Diagrama editable</td><td><code>docs/arquitectura.drawio</code></td></tr>
+      <tr><td>Capturas del sitio</td><td><code>docs/capturas/</code></td></tr>
+    </tbody>
+  </table>
+
+  <footer>
+    Actividad 3 · Ciberseguridad · Terraform · LocalStack · Docker · Trivy · JWT · OWASP ZAP
+  </footer>
+</body>
+</html>

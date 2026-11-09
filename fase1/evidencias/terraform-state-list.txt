@@ -1,0 +1,3 @@
+aws_s3_bucket.secure_bucket
+aws_s3_bucket_public_access_block.secure_bucket_pab
+aws_s3_bucket_server_side_encryption_configuration.secure_bucket_sse

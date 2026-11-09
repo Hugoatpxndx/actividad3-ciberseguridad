@@ -1,0 +1,13 @@
+{
+  "name": "act3-fase2",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplicación de demostración para escaneo de contenedores con Trivy",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

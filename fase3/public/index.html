@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Laboratorio de autenticación JWT con Express y OWASP ZAP">
+  <title>Actividad 3 | API segura con JWT</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Inicio">
+      <span class="logo">A3</span>
+      <span class="brand-text">
+        <strong>Secure API Lab</strong>
+        <small>JWT · Express · OWASP ZAP</small>
+      </span>
+    </a>
+    <div class="status-pill" id="serverStatus">
+      <span class="dot"></span>
+      <span id="serverStatusText">Comprobando API...</span>
+    </div>
+  </header>
+
+  <main>
+    <section id="loginView" class="view">
+      <div class="hero">
+        <p class="eyebrow">Fase 3 · Desarrollo seguro</p>
+        <h1>Autenticación con <span>JWT</span> en una API real</h1>
+        <p class="lead">
+          Inicia sesión, obtén un token firmado y comprueba cómo el middleware
+          protege los endpoints de administración.
+        </p>
+        <div class="chips" aria-label="Características">
+          <span class="chip">HS256</span>
+          <span class="chip">15 min</span>
+          <span class="chip">401 / 403</span>
+          <span class="chip">CSP</span>
+        </div>
+      </div>
+
+      <form id="loginForm" class="card login-card" method="post" action="/api/login" autocomplete="on">
+        <h2>Iniciar sesión</h2>
+        <p class="card-subtitle">Credenciales de demostración</p>
+
+        <label for="username">Usuario</label>
+        <input id="username" name="username" autocomplete="username" value="admin" required>
+
+        <label for="password">Contraseña</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" value="admin123" required>
+
+        <button type="submit" class="btn primary" id="loginBtn">Obtener token JWT</button>
+
+        <p class="hint">
+          Demo: <code>admin / admin123</code> · <code>usuario / usuario123</code>
+        </p>
+        <div id="loginMessage" class="message" role="status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <section id="dashboardView" class="view hidden">
+      <div class="dash-head">
+        <div>
+          <p class="eyebrow">Sesión activa</p>
+          <h1>Panel de <span>administración</span></h1>
+        </div>
+        <button id="logoutBtn" class="btn ghost" type="button">Cerrar sesión</button>
+      </div>
+
+      <div class="grid">
+        <article class="card token-card">
+          <div class="card-head">
+            <h2>Token JWT</h2>
+            <div class="badges">
+              <span id="roleBadge" class="badge">role</span>
+              <span id="expiresBadge" class="badge muted">exp</span>
+            </div>
+          </div>
+          <pre id="tokenPreview" class="code"></pre>
+          <p class="hint">
+            Se guarda en <code>sessionStorage</code> y se envía como
+            <code>Authorization: Bearer &lt;token&gt;</code>.
+          </p>
+        </article>
+
+        <article class="card">
+          <h2>Pruebas de autorización</h2>
+          <p class="card-subtitle">Compara el código HTTP con y sin token.</p>
+          <div class="actions">
+            <button class="btn" type="button" data-test="/api/public">GET /api/public</button>
+            <button class="btn" type="button" data-test="/api/me">GET /api/me</button>
+            <button class="btn" type="button" data-test="/api/admin">GET /api/admin</button>
+            <button class="btn danger" type="button" data-test="/api/admin" data-noauth="true">
+              GET /api/admin sin token
+            </button>
+          </div>
+          <div id="testResult" class="result" aria-live="polite">
+            Ejecuta una prueba para ver el código HTTP y la respuesta.
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Payload decodificado</h2>
+          <p class="card-subtitle">Solo se decodifica para visualizarlo; la firma se valida en el servidor.</p>
+          <pre id="payloadPreview" class="code"></pre>
+        </article>
+
+        <article class="card">
+          <h2>Checklist de seguridad</h2>
+          <ul class="checklist">
+            <li>Firma HS256 verificada</li>
+            <li>Expiración de 15 minutos</li>
+            <li>Roles <code>admin</code> y <code>user</code></li>
+            <li>401 sin token · 403 sin permiso</li>
+            <li>Cabeceras CSP y anti-clickjacking</li>
+            <li>Contraseñas derivadas con scrypt</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>Actividad 3 · Ciberseguridad</span>
+    <span class="footer-sep">/</span>
+    <span>LocalStack · Terraform · Trivy · JWT · ZAP</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

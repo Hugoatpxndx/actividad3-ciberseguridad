@@ -1,0 +1,12 @@
+== health ==
+HTTP/1.1 200 OK
+Content-Type: application/json; charset=utf-8
+Content-Length: 38
+ETag: W/"26-B6XX9ZLgOjEsI6UNFcIgLTwpKmk"
+Date: Mon, 09 Nov 2026 23:29:25 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"status":"ok","service":"act3-fase2"}
+== root ==
+Actividad 3 - Fase 2: imagen escaneada con Trivy

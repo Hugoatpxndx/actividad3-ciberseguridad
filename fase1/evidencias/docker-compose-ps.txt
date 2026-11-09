@@ -1,0 +1,2 @@
+NAME              IMAGE                          COMMAND                  SERVICE      CREATED              STATUS                        PORTS
+localstack-act3   localstack/localstack:latest   "docker-entrypoint.sh"   localstack   About a minute ago   Up About a minute (healthy)   53/tcp, 443/tcp, 4510-4559/tcp, 5678/tcp, 127.0.0.1:4566->4566/tcp

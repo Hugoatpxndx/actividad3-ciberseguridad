@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Arquitectura segura de la Actividad 3</title>
+  <desc id="desc">Flujo seguro entre navegador, API Express con JWT, bucket S3 cifrado, rol IAM, Trivy y OWASP ZAP.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070b12"/>
+      <stop offset="1" stop-color="#0c1524"/>
+    </linearGradient>
+    <linearGradient id="api" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10233d"/>
+      <stop offset="1" stop-color="#0d1729"/>
+    </linearGradient>
+    <linearGradient id="s3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f2a25"/>
+      <stop offset="1" stop-color="#0b1c1a"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#45e0b7"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5aa9ff"/>
+    </marker>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="760" fill="url(#bg)"/>
+  <g opacity="0.18" stroke="#5aa9ff" stroke-width="1">
+    <path d="M0 100 H1200 M0 200 H1200 M0 300 H1200 M0 400 H1200 M0 500 H1200 M0 600 H1200 M0 700 H1200"/>
+    <path d="M100 0 V760 M200 0 V760 M300 0 V760 M400 0 V760 M500 0 V760 M600 0 V760 M700 0 V760 M800 0 V760 M900 0 V760 M1000 0 V760 M1100 0 V760"/>
+  </g>
+
+  <text x="60" y="58" fill="#45e0b7" font-family="ui-monospace, monospace" font-size="13" font-weight="700" letter-spacing="3">ACTIVIDAD 3 · CIBERSEGURIDAD</text>
+  <text x="60" y="98" fill="#e8eef8" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="800">Arquitectura segura de extremo a extremo</text>
+  <text x="60" y="126" fill="#8fa2bd" font-family="Inter, system-ui, sans-serif" font-size="14">Navegador → API Express con JWT → S3 privado y cifrado · controles IAM · Trivy · OWASP ZAP</text>
+
+  <rect x="330" y="165" width="430" height="330" rx="24" fill="none" stroke="#5aa9ff" stroke-opacity="0.25" stroke-dasharray="7 7"/>
+  <text x="348" y="192" fill="#5aa9ff" font-family="ui-monospace, monospace" font-size="11" letter-spacing="2">FRONTERA DE CONFIANZA</text>
+
+  <!-- Cliente -->
+  <rect x="55" y="250" width="210" height="150" rx="18" fill="#0f172a" stroke="#5aa9ff" stroke-width="1.5"/>
+  <rect x="75" y="270" width="42" height="42" rx="11" fill="#122a4a" stroke="#5aa9ff" stroke-opacity="0.5"/>
+  <text x="96" y="297" text-anchor="middle" fill="#5aa9ff" font-family="ui-monospace, monospace" font-size="13" font-weight="700">WEB</text>
+  <text x="130" y="286" fill="#e8eef8" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700">Navegador</text>
+  <text x="130" y="307" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="11">HTML · CSS · JS</text>
+  <text x="75" y="345" fill="#b9c8dc" font-family="Inter, system-ui, sans-serif" font-size="12">Login con usuario y contraseña</text>
+  <text x="75" y="366" fill="#b9c8dc" font-family="Inter, system-ui, sans-serif" font-size="12">Token en sessionStorage</text>
+  <text x="75" y="387" fill="#45e0b7" font-family="ui-monospace, monospace" font-size="11">Authorization: Bearer &lt;jwt&gt;</text>
+
+  <!-- API -->
+  <rect x="365" y="215" width="360" height="270" rx="20" fill="url(#api)" stroke="#45e0b7" stroke-width="1.5" filter="url(#glow)"/>
+  <text x="390" y="248" fill="#e8eef8" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="800">API Express</text>
+  <text x="390" y="268" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="11">Node.js · puerto 3000</text>
+
+  <rect x="390" y="288" width="310" height="36" rx="9" fill="#0a1424" stroke="#5aa9ff" stroke-opacity="0.35"/>
+  <text x="404" y="311" fill="#b9c8dc" font-family="ui-monospace, monospace" font-size="11">POST /api/login → firma HS256 · 15 min</text>
+
+  <rect x="390" y="334" width="310" height="36" rx="9" fill="#0a1424" stroke="#45e0b7" stroke-opacity="0.35"/>
+  <text x="404" y="357" fill="#b9c8dc" font-family="ui-monospace, monospace" font-size="11">authenticate() → verifica firma y expiración</text>
+
+  <rect x="390" y="380" width="310" height="36" rx="9" fill="#0a1424" stroke="#45e0b7" stroke-opacity="0.35"/>
+  <text x="404" y="403" fill="#b9c8dc" font-family="ui-monospace, monospace" font-size="11">requireRole('admin') → 403 si no autoriza</text>
+
+  <rect x="390" y="426" width="310" height="36" rx="9" fill="#0a1424" stroke="#ff6b81" stroke-opacity="0.35"/>
+  <text x="404" y="449" fill="#b9c8dc" font-family="ui-monospace, monospace" font-size="11">GET /api/admin · 401 sin token</text>
+
+  <!-- S3 -->
+  <rect x="860" y="225" width="285" height="210" rx="20" fill="url(#s3)" stroke="#45e0b7" stroke-width="1.5"/>
+  <text x="885" y="258" fill="#e8eef8" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="800">Bucket S3</text>
+  <text x="885" y="278" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="11">actividad3-seguro-local</text>
+
+  <rect x="885" y="298" width="235" height="32" rx="8" fill="#0a1c19" stroke="#45e0b7" stroke-opacity="0.35"/>
+  <text x="898" y="319" fill="#b9e9dc" font-family="ui-monospace, monospace" font-size="11">Cifrado SSE-S3 · AES256</text>
+
+  <rect x="885" y="340" width="235" height="32" rx="8" fill="#0a1c19" stroke="#45e0b7" stroke-opacity="0.35"/>
+  <text x="898" y="361" fill="#b9e9dc" font-family="ui-monospace, monospace" font-size="11">Block Public Access × 4</text>
+
+  <rect x="885" y="382" width="235" height="32" rx="8" fill="#0a1c19" stroke="#45e0b7" stroke-opacity="0.35"/>
+  <text x="898" y="403" fill="#b9e9dc" font-family="ui-monospace, monospace" font-size="11">ACL privada · solo propietario</text>
+
+  <!-- IAM -->
+  <rect x="365" y="565" width="240" height="100" rx="16" fill="#101a2b" stroke="#5aa9ff" stroke-width="1.2"/>
+  <text x="385" y="596" fill="#e8eef8" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700">Rol IAM</text>
+  <text x="385" y="618" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="11">mínimo privilegio</text>
+  <text x="385" y="641" fill="#b9e9dc" font-family="ui-monospace, monospace" font-size="11">s3:GetObject · s3:ListBucket</text>
+
+  <!-- Trivy -->
+  <rect x="640" y="565" width="230" height="100" rx="16" fill="#101a2b" stroke="#45e0b7" stroke-width="1.2"/>
+  <text x="660" y="596" fill="#e8eef8" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700">CI/CD · Trivy</text>
+  <text x="660" y="618" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="11">imagen node:18-alpine</text>
+  <text x="660" y="641" fill="#45e0b7" font-family="ui-monospace, monospace" font-size="11">0 CRITICAL · 0 HIGH</text>
+
+  <!-- ZAP -->
+  <rect x="900" y="565" width="240" height="100" rx="16" fill="#101a2b" stroke="#ffc857" stroke-width="1.2"/>
+  <text x="920" y="596" fill="#e8eef8" font-family="Inter, system-ui, sans-serif" font-size="15" font-weight="700">OWASP ZAP</text>
+  <text x="920" y="618" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="11">baseline scan</text>
+  <text x="920" y="641" fill="#ffc857" font-family="ui-monospace, monospace" font-size="11">0 FAIL · 3 WARN · 65 PASS</text>
+
+  <!-- Flechas -->
+  <path d="M265 325 C310 325 320 325 365 325" fill="none" stroke="#45e0b7" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="280" y="310" fill="#45e0b7" font-family="ui-monospace, monospace" font-size="10">HTTPS + JWT</text>
+
+  <path d="M725 330 C780 330 800 330 860 330" fill="none" stroke="#45e0b7" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="748" y="315" fill="#45e0b7" font-family="ui-monospace, monospace" font-size="10">s3:GetObject</text>
+
+  <path d="M605 565 C605 530 605 500 605 485" fill="none" stroke="#5aa9ff" stroke-width="1.6" stroke-dasharray="5 5" marker-end="url(#arrowBlue)"/>
+  <text x="612" y="530" fill="#5aa9ff" font-family="ui-monospace, monospace" font-size="10">permisos mínimos</text>
+
+  <path d="M755 565 C755 530 755 510 740 485" fill="none" stroke="#45e0b7" stroke-width="1.6" stroke-dasharray="5 5" marker-end="url(#arrow)"/>
+  <text x="765" y="530" fill="#45e0b7" font-family="ui-monospace, monospace" font-size="10">escanea imagen</text>
+
+  <path d="M1020 565 C1020 520 1000 490 990 485" fill="none" stroke="#ffc857" stroke-width="1.6" stroke-dasharray="5 5" marker-end="url(#arrow)"/>
+  <text x="1000" y="530" fill="#ffc857" font-family="ui-monospace, monospace" font-size="10">pruebas</text>
+
+  <!-- Leyenda -->
+  <g transform="translate(60, 680)">
+    <circle cx="8" cy="8" r="5" fill="#45e0b7"/>
+    <text x="22" y="12" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="10">flujo permitido</text>
+    <circle cx="158" cy="8" r="5" fill="#5aa9ff"/>
+    <text x="172" y="12" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="10">control de acceso</text>
+    <circle cx="318" cy="8" r="5" fill="#ffc857"/>
+    <text x="332" y="12" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="10">verificación de seguridad</text>
+  </g>
+</svg>

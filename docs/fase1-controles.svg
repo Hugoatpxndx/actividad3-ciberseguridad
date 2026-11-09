@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320" role="img" aria-label="Controles de seguridad del bucket S3">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070b12"/>
+      <stop offset="1" stop-color="#0c1524"/>
+    </linearGradient>
+    <linearGradient id="bucket" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f2a25"/>
+      <stop offset="1" stop-color="#0b1c1a"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="320" fill="url(#bg)"/>
+  <g opacity="0.16" stroke="#5aa9ff">
+    <path d="M0 80 H960 M0 160 H960 M0 240 H960"/>
+    <path d="M80 0 V320 M160 0 V320 M240 0 V320 M320 0 V320 M400 0 V320 M480 0 V320 M560 0 V320 M640 0 V320 M720 0 V320 M800 0 V320 M880 0 V320"/>
+  </g>
+
+  <text x="40" y="46" fill="#45e0b7" font-family="ui-monospace, monospace" font-size="12" font-weight="700" letter-spacing="2">FASE 1 · S3 SEGURO</text>
+  <text x="40" y="78" fill="#e8eef8" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="800">actividad3-seguro-local</text>
+
+  <rect x="40" y="105" width="420" height="170" rx="18" fill="url(#bucket)" stroke="#45e0b7" stroke-width="1.5"/>
+  <text x="65" y="140" fill="#e8eef8" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700">Bucket privado</text>
+  <text x="65" y="164" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="11">LocalStack · us-east-1</text>
+  <rect x="65" y="184" width="170" height="34" rx="9" fill="#0a1c19" stroke="#45e0b7" stroke-opacity="0.4"/>
+  <text x="80" y="206" fill="#b9e9dc" font-family="ui-monospace, monospace" font-size="12">SSE-S3 · AES256</text>
+  <rect x="250" y="184" width="185" height="34" rx="9" fill="#0a1c19" stroke="#45e0b7" stroke-opacity="0.4"/>
+  <text x="265" y="206" fill="#b9e9dc" font-family="ui-monospace, monospace" font-size="12">ACL solo propietario</text>
+  <text x="65" y="250" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="11">Terraform · 3 recursos</text>
+
+  <rect x="510" y="105" width="410" height="170" rx="18" fill="#101a2b" stroke="#5aa9ff" stroke-width="1.2"/>
+  <text x="535" y="140" fill="#e8eef8" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700">Block Public Access</text>
+  <text x="535" y="164" fill="#8fa2bd" font-family="ui-monospace, monospace" font-size="11">4 de 4 controles activos</text>
+  <g font-family="ui-monospace, monospace" font-size="11" fill="#b9e9dc">
+    <rect x="535" y="180" width="170" height="30" rx="8" fill="#0a1c19" stroke="#45e0b7" stroke-opacity="0.35"/>
+    <text x="548" y="200">BlockPublicAcls ✓</text>
+    <rect x="720" y="180" width="175" height="30" rx="8" fill="#0a1c19" stroke="#45e0b7" stroke-opacity="0.35"/>
+    <text x="733" y="200">IgnorePublicAcls ✓</text>
+    <rect x="535" y="220" width="170" height="30" rx="8" fill="#0a1c19" stroke="#45e0b7" stroke-opacity="0.35"/>
+    <text x="548" y="240">BlockPublicPolicy ✓</text>
+    <rect x="720" y="220" width="175" height="30" rx="8" fill="#0a1c19" stroke="#45e0b7" stroke-opacity="0.35"/>
+    <text x="733" y="240">RestrictPublic ✓</text>
+  </g>
+</svg>

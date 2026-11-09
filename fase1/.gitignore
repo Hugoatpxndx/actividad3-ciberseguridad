@@ -1,0 +1,9 @@
+.env
+.localstack/
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+tfplan
+*.tfplan

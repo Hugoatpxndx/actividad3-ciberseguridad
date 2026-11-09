@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+Server: TwistedWeb/26.4.0
+Date: Sun, 08 Nov 2026 22:27:13 GMT
+Content-Type: text/plain
+accept-ranges: bytes
+Last-Modified: Sun, 08 Nov 2026 22:27:12 GMT
+Content-Length: 36
+ETag: "e3fc378c6c805a2f31b041f0cf7a3e9e"
+x-amz-server-side-encryption: AES256
+x-amz-request-id: 0a02ca95-eff3-469b-8275-42422817f77a
+x-amz-id-2: s9lzHYrFp76ZVxRcpX9+5cjAnEH2ROuNkd2BHfIa6UkFVdtjf5mKR3/eTPFvsiP/XV/VLi31234=
+x-localstack: 2026.10.6
+
+Archivo de prueba de la Actividad 3
