@@ -32,6 +32,10 @@ Bucket S3 simulado en LocalStack, creado con Terraform, con **cifrado AES-256** 
 
 Salida completa: [`evidencias/versiones.txt`](evidencias/versiones.txt).
 
+![Panel de LocalStack con el plan AWS Freemium](evidencias/plan-freemium.png)
+
+> El token personal aparece oculto a propósito.
+
 ## Checklist de evidencias
 
 | Evidencia solicitada | Archivo |
@@ -42,7 +46,7 @@ Salida completa: [`evidencias/versiones.txt`](evidencias/versiones.txt).
 | Cifrado AES-256 y 4 controles de bloqueo | [`evidencias/verificacion-s3.txt`](evidencias/verificacion-s3.txt) |
 | Carga del archivo y acceso anónimo | [`evidencias/subida-archivo.txt`](evidencias/subida-archivo.txt), [`evidencias/acceso-anonimo.txt`](evidencias/acceso-anonimo.txt) |
 | Dashboard con el bucket creado | [`evidencias/S3.png`](evidencias/S3.png) |
-| Plan gratuito de LocalStack (Freemium / Hobby) | [`evidencias/plan-localstack.txt`](evidencias/plan-localstack.txt) |
+| Plan gratuito de LocalStack (Freemium / Hobby) | [`evidencias/plan-localstack.txt`](evidencias/plan-localstack.txt), [`evidencias/plan-freemium.png`](evidencias/plan-freemium.png) |
 | Repositorio público verificado | <https://github.com/Hugoatpxndx/actividad3-ciberseguridad> |
 
 > **Plan de LocalStack:** el plan gratuito aparece hoy como **Freemium** en el panel web (la guía lo llama *Hobby — Free*). Es el mismo plan: `Emulator Access → AWS · Freemium`, créditos ilimitados y sin funciones de pago. El plan activo se registra en [`evidencias/plan-localstack.txt`](evidencias/plan-localstack.txt) y el estado del emulador en [`evidencias/versiones.txt`](evidencias/versiones.txt).

@@ -34,6 +34,10 @@
 
 Salida completa: [`fase1/evidencias/versiones.txt`](../fase1/evidencias/versiones.txt).
 
+![Panel de LocalStack con el plan AWS Freemium](../fase1/evidencias/plan-freemium.png)
+
+> **Plan gratuito.** El panel muestra `AWS · Freemium` con créditos ilimitados: es el plan que la guía llama *Hobby — Free*. El token personal está oculto a propósito.
+
 ### Recursos declarados
 
 | Recurso | Configuración |
