@@ -111,12 +111,12 @@ Credenciales demo: `admin / admin123` · `usuario / usuario123`
 | Trivy imagen corregida | [`fase2/evidencias/trivy-node18.txt`](fase2/evidencias/trivy-node18.txt) |
 | Pruebas 401/403/200 | [`fase3/evidencias/pruebas-autorizacion.txt`](fase3/evidencias/pruebas-autorizacion.txt) |
 | Reporte ZAP | [`fase3/evidencias/zap-baseline.html`](fase3/evidencias/zap-baseline.html) |
-| Capturas del sitio | [`docs/capturas/`](docs/capturas/) |
+| Capturas del sitio y de las herramientas | [`docs/capturas/`](docs/capturas/) — 18 imágenes |
 
 ## Informe
 
 - [Informe completo en Markdown](docs/INFORME.md)
-- [Informe visual en PDF](docs/Informe_Actividad3.pdf)
+- [Informe visual en PDF](docs/Informe_Actividad3.pdf) (17 páginas)
 - [Diagrama editable en draw.io](docs/arquitectura.drawio)
 
 ## Seguridad

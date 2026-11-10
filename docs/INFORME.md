@@ -55,6 +55,16 @@ Salida completa: [`fase1/evidencias/versiones.txt`](../fase1/evidencias/versione
 
 ![Controles de seguridad del bucket](fase1-controles.svg)
 
+### Plan de Terraform
+
+![Salida de terraform plan](capturas/11-terraform-plan.png)
+
+### Verificación con AWS CLI
+
+![Verificación del cifrado y del bloqueo público](capturas/12-verificacion-s3.png)
+
+### Dashboard con el bucket creado
+
 ![Dashboard de LocalStack con el bucket creado](../fase1/evidencias/S3.png)
 
 > **Lectura importante:** `NoSuchBucketPolicy` solo indica que no hay una política de bucket adjunta. No significa que el bucket sea público. La privacidad se sostiene con la ACL privada y los cuatro bloqueos.
@@ -92,6 +102,11 @@ LocalStack permitió la lectura anónima. Es una **limitación del simulador**: 
 > **Alcance:** los conteos corresponden a las severidades **CRITICAL y HIGH** (`trivy image --severity CRITICAL,HIGH`). No incluyen MEDIUM ni LOW.
 
 ![Antes y después de Trivy](fase2-trivy.svg)
+
+| Imagen | Salida real de Trivy |
+|---|---|
+| `node:14` | ![Trivy sobre node:14](capturas/13-trivy-antes.png) |
+| `node:18-alpine` | ![Trivy sobre node:18-alpine](capturas/14-trivy-despues.png) |
 
 ### Mitigaciones aplicadas
 
@@ -136,11 +151,13 @@ CMD ["node", "server.js"]
 
 ### Sitio
 
-<img src="capturas/01-login.png" alt="Pantalla de login" width="820">
+**Pantalla de acceso**
 
-<img src="capturas/02-dashboard.png" alt="Panel con token JWT" width="820">
+![Pantalla de login](capturas/01-login.png)
 
-<img src="capturas/03-prueba-admin.png" alt="Prueba del endpoint de administración" width="820">
+**Panel tras autenticarse**
+
+![Panel con token JWT](capturas/02-dashboard.png)
 
 ### Matriz de autorización
 
@@ -150,6 +167,26 @@ CMD ["node", "server.js"]
 | `GET /api/admin` con token inválido | `401` | ✅ |
 | `GET /api/admin` con token de `usuario` | `403` | ✅ |
 | `GET /api/admin` con token de `admin` | `200` | ✅ |
+
+**200 con `admin`**
+
+![Prueba con token de admin devolviendo 200](capturas/03b-resultado-200.png)
+
+**401 sin token · 403 con rol `user`**
+
+| Sin token | Con token de `usuario` |
+|---|---|
+| ![401 sin token](capturas/05b-resultado-401.png) | ![403 sin rol admin](capturas/06b-resultado-403.png) |
+
+**Pruebas con curl**
+
+![Salida de curl con 200, 401 y 403](capturas/15-pruebas-curl.png)
+
+### Errores y vista móvil
+
+![Credenciales inválidas](capturas/07-login-error.png)
+
+<img src="capturas/04-login-movil.png" alt="Vista móvil del login" width="300">
 
 ### Middleware JWT
 
@@ -194,6 +231,18 @@ function requireRole(role) {
 | PASS | 65 |
 
 Las 3 advertencias son de bajo riesgo: contenido no almacenable, formulario de login detectado (esperado) y ausencia de token anti-CSRF. La API usa JSON + `Authorization: Bearer`, por lo que el riesgo CSRF es bajo. Se documenta como mejora.
+
+**Resumen del escaneo**
+
+![Resumen del informe de ZAP](capturas/08-zap-resumen.png)
+
+**Alertas detectadas**
+
+![Tabla de alertas de ZAP](capturas/09-zap-alertas.png)
+
+**Detalle de una alerta**
+
+![Detalle de la alerta de ausencia de token anti-CSRF](capturas/10-zap-detalle.png)
 
 ### Política IAM de mínimo privilegio
 
@@ -253,4 +302,4 @@ Las 3 advertencias son de bajo riesgo: contenido no almacenable, formulario de l
 | Código de la API | [`fase3/server.js`](../fase3/server.js) |
 | Política IAM | [`fase3/iam-policy.json`](../fase3/iam-policy.json) |
 | Diagrama editable | [`arquitectura.drawio`](arquitectura.drawio) |
-| Capturas del sitio | [`capturas/`](capturas/) |
+| Capturas del sitio y de las herramientas | [`capturas/`](capturas/) — 18 imágenes |

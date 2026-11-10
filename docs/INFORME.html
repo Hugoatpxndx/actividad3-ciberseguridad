@@ -151,6 +151,34 @@
       margin: 18px 0;
     }
     .shots img { border: 1px solid var(--line); box-shadow: 0 16px 40px rgba(16, 24, 40, 0.12); }
+    figure { margin: 18px 0 22px; }
+    figure img {
+      display: block;
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 14px 34px rgba(16, 24, 40, 0.12);
+    }
+    figure.term img { border: none; box-shadow: 0 18px 42px rgba(15, 23, 42, 0.24); }
+    figure.term { max-width: 172mm; margin-left: auto; margin-right: auto; }
+    figcaption { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+    figcaption b { color: var(--text); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid-2 figure { margin: 0; }
+    .kpi {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .kpi div {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #f8fafc;
+      font-size: 13px;
+    }
+    .kpi strong { display: block; font-size: 20px; margin-bottom: 2px; }
     .two-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -158,6 +186,10 @@
       align-items: start;
     }
     .small { color: var(--muted); font-size: 13px; }
+    .toc, .refs { padding-left: 20px; font-size: 13.5px; }
+    .toc li, .refs li { margin: 7px 0; }
+    .toc li b { color: var(--ink, #0f172a); }
+    .refs span { color: var(--muted); }
     .page-break { page-break-before: always; }
     footer {
       margin-top: 48px;
@@ -173,9 +205,13 @@
       h2 { margin-top: 26px; }
       .cover { min-height: 250mm; border-radius: 0; }
       .page-break { page-break-before: always; }
-      pre { font-size: 9.5px; }
+      pre { font-size: 9.5px; break-inside: avoid; page-break-inside: avoid; }
       table { font-size: 10.5px; }
       img { max-height: 190mm; object-fit: contain; }
+      figure, .grid-2, .kpi { page-break-inside: avoid; }
+      h2, h3 { break-after: avoid; page-break-after: avoid; }
+      table.keep { break-inside: avoid; page-break-inside: avoid; }
+      tr { break-inside: avoid; }
     }
   </style>
 </head>
@@ -231,6 +267,16 @@
     </tbody>
   </table>
 
+  <h3>Contenido</h3>
+  <ol class="toc">
+    <li><b>Resumen visual</b> — resultados de las tres fases</li>
+    <li><b>Fase 1 · Bucket S3 seguro</b> — Terraform, LocalStack y verificación con AWS CLI</li>
+    <li><b>Fase 2 · Seguridad de contenedores</b> — Trivy, comparación de imágenes y Dockerfile final</li>
+    <li><b>Fase 3 · Sitio y API con JWT</b> — login, matriz de autorización, ZAP e IAM</li>
+    <li><b>Conclusiones</b> — aprendizajes y aplicación práctica</li>
+    <li><b>Referencias y anexos</b> — fuentes y ubicación de las evidencias</li>
+  </ol>
+
   <h2 class="page-break">Fase 1 · Bucket S3 seguro</h2>
   <img src="fase1-controles.svg" alt="Controles del bucket S3">
 
@@ -274,8 +320,23 @@
     <strong>Lectura importante:</strong> <code>NoSuchBucketPolicy</code> solo indica que no hay una política de bucket adjunta. No significa que el bucket sea público. La privacidad se sostiene con la ACL privada y los cuatro bloqueos.
   </div>
 
+  <h3>Plan de Terraform</h3>
+  <figure class="term">
+    <img src="capturas/11-terraform-plan.png" alt="Salida de terraform plan con los tres recursos">
+    <figcaption><b>terraform plan.</b> Tres recursos declarados: bucket, bloqueo de acceso público y cifrado. Extracto de <code>fase1/evidencias/terraform-plan.txt</code>.</figcaption>
+  </figure>
+
+  <h3>Verificación con AWS CLI</h3>
+  <figure class="term">
+    <img src="capturas/12-verificacion-s3.png" alt="Salida de AWS CLI con el cifrado AES256 y el bloqueo público">
+    <figcaption><b>AWS CLI.</b> El bucket responde <code>AES256</code> y los cuatro controles de bloqueo público en <code>true</code>. Extracto de <code>fase1/evidencias/verificacion-s3.txt</code>.</figcaption>
+  </figure>
+
   <h3>Dashboard con el bucket creado</h3>
-  <img src="../fase1/evidencias/S3.png" alt="Dashboard de LocalStack con el bucket actividad3-seguro-local">
+  <figure style="max-width: 135mm; margin-left: auto; margin-right: auto;">
+    <img src="../fase1/evidencias/S3.png" alt="Dashboard de LocalStack con el bucket actividad3-seguro-local">
+    <figcaption><b>LocalStack.</b> El bucket <code>actividad3-seguro-local</code> visible en el panel web del emulador.</figcaption>
+  </figure>
 
   <h3>Acceso anónimo en LocalStack</h3>
   <pre><code>HTTP/1.1 200 OK
@@ -283,12 +344,12 @@ x-amz-server-side-encryption: AES256</code></pre>
   <p>LocalStack permitió la lectura anónima. Es una <strong>limitación del simulador</strong>: no replica todas las reglas de autorización de AWS. La respuesta confirma que el objeto está cifrado con AES-256. En AWS real, con los cuatro bloqueos activos y sin política pública, la lectura anónima se deniega.</p>
 
   <h3>Conclusión de la fase</h3>
-  <table>
+  <table class="keep">
     <thead><tr><th>Nivel</th><th>Qué se comprobó</th></tr></thead>
     <tbody>
-      <tr><td>Infraestructura declarada</td><td>Terraform define el bucket, <code>AES256</code> y los cuatro bloqueos públicos.</td></tr>
-      <tr><td>Configuración consultada</td><td>AWS CLI confirma que el cifrado y los cuatro bloqueos están aplicados; la ACL es privada.</td></tr>
-      <tr><td>Seguridad efectivamente aplicada</td><td>La prueba anónima devuelve <code>200</code> en LocalStack, una limitación del simulador; en AWS real la combinación de bloqueos y ausencia de política pública denegaría la lectura.</td></tr>
+      <tr><td>Infraestructura declarada</td><td>Terraform define el bucket, <code>AES256</code> y los cuatro bloqueos.</td></tr>
+      <tr><td>Configuración consultada</td><td>AWS CLI confirma cifrado, bloqueos y ACL privada.</td></tr>
+      <tr><td>Seguridad aplicada</td><td>En LocalStack la lectura anónima responde <code>200</code>; en AWS real se deniega.</td></tr>
     </tbody>
   </table>
 
@@ -306,6 +367,19 @@ x-amz-server-side-encryption: AES256</code></pre>
   </table>
 
   <p class="small"><strong>Alcance:</strong> los conteos corresponden a las severidades <strong>CRITICAL y HIGH</strong> (<code>trivy image --severity CRITICAL,HIGH</code>). No incluyen MEDIUM ni LOW.</p>
+
+  <h3>Antes y después en la consola</h3>
+  <div class="grid-2">
+    <figure class="term">
+      <img src="capturas/13-trivy-antes.png" alt="Trivy sobre node:14 con 595 hallazgos">
+      <figcaption><b>node:14.</b> 566 del sistema + 29 de paquetes: 23 críticas y 572 altas.</figcaption>
+    </figure>
+    <figure class="term">
+      <img src="capturas/14-trivy-despues.png" alt="Trivy sobre node:18-alpine sin hallazgos">
+      <figcaption><b>node:18-alpine.</b> Sin hallazgos críticos ni altos tras las correcciones.</figcaption>
+    </figure>
+  </div>
+  <p class="small">Salidas reales de Trivy 0.76.2, recortadas de <code>fase2/evidencias/trivy-node14.txt</code> y <code>trivy-node18.txt</code>.</p>
 
   <h3>Mitigaciones aplicadas</h3>
   <table>
@@ -345,11 +419,18 @@ CMD ["node", "server.js"]</code></pre>
   </div>
 
   <h2 class="page-break">Fase 3 · Sitio y API con JWT</h2>
-  <div class="shots">
-    <img src="capturas/01-login.png" alt="Pantalla de login">
-    <img src="capturas/02-dashboard.png" alt="Panel con token JWT">
-    <img src="capturas/03-prueba-admin.png" alt="Prueba del endpoint de administración">
-  </div>
+
+  <h3>Pantalla de acceso</h3>
+  <figure>
+    <img src="capturas/01-login.png" alt="Pantalla de login del sitio">
+    <figcaption><b>Login.</b> Formulario servido por Express con CSP, sin <code>X-Powered-By</code> y credenciales de demostración visibles.</figcaption>
+  </figure>
+
+  <h3>Panel tras autenticarse</h3>
+  <figure>
+    <img src="capturas/02-dashboard.png" alt="Panel con el token JWT y las pruebas de autorización">
+    <figcaption><b>Panel.</b> Token firmado, payload decodificado, botones de prueba y checklist de seguridad.</figcaption>
+  </figure>
 
   <h3>Matriz de autorización</h3>
   <table>
@@ -361,6 +442,29 @@ CMD ["node", "server.js"]</code></pre>
       <tr><td><code>GET /api/admin</code> con token de <code>admin</code></td><td class="num">200</td><td class="ok">Correcto</td></tr>
     </tbody>
   </table>
+
+  <h3>Resultado en pantalla</h3>
+  <figure>
+    <img src="capturas/03b-resultado-200.png" alt="Prueba del endpoint de administración con token de admin devolviendo 200">
+    <figcaption><b>200 con <code>admin</code>.</b> El middleware valida el token y el rol; la API responde con el usuario y las estadísticas.</figcaption>
+  </figure>
+
+  <div class="grid-2">
+    <figure>
+      <img src="capturas/05b-resultado-401.png" alt="Petición sin token devolviendo 401">
+      <figcaption><b>401 sin token.</b> <code>Token requerido</code>: la petición no llega al controlador.</figcaption>
+    </figure>
+    <figure>
+      <img src="capturas/06b-resultado-403.png" alt="Petición con token de usuario devolviendo 403">
+      <figcaption><b>403 con rol <code>user</code>.</b> Token válido, permisos insuficientes.</figcaption>
+    </figure>
+  </div>
+
+  <h3>Pruebas con curl</h3>
+  <figure class="term">
+    <img src="capturas/15-pruebas-curl.png" alt="Salida de curl con los códigos 200, 401 y 403">
+    <figcaption><b>curl.</b> Misma matriz comprobada fuera del navegador. Extracto de <code>fase3/evidencias/pruebas-autorizacion.txt</code>.</figcaption>
+  </figure>
 
   <h3>Middleware JWT</h3>
   <pre><code>function authenticate(req, res, next) {
@@ -393,6 +497,18 @@ function requireRole(role) {
   };
 }</code></pre>
 
+  <h3>Errores de acceso</h3>
+  <figure>
+    <img src="capturas/07-login-error.png" alt="Mensaje de credenciales inválidas en el login">
+    <figcaption><b>Credenciales inválidas.</b> El servidor responde <code>401</code> sin revelar si el usuario existe.</figcaption>
+  </figure>
+
+  <h3>Vista móvil</h3>
+  <figure style="max-width: 68mm; margin-left: auto; margin-right: auto;">
+    <img src="capturas/04-login-movil.png" alt="Vista móvil del login">
+    <figcaption style="text-align: center;"><b>390 px.</b> El diseño se adapta al móvil.</figcaption>
+  </figure>
+
   <h3>OWASP ZAP</h3>
   <table>
     <thead><tr><th>Métrica</th><th class="num">Valor</th></tr></thead>
@@ -403,6 +519,21 @@ function requireRole(role) {
     </tbody>
   </table>
   <p>Las 3 advertencias son de bajo riesgo: contenido no almacenable, formulario de login detectado (esperado) y ausencia de token anti-CSRF. La API usa JSON + <code>Authorization: Bearer</code>, por lo que el riesgo CSRF es bajo. Se documenta como mejora.</p>
+
+  <figure>
+    <img src="capturas/08-zap-resumen.png" alt="Resumen del informe de OWASP ZAP">
+    <figcaption><b>Resumen del escaneo.</b> Sin alertas de riesgo alto; 3 de riesgo medio. Informe real de ZAP 2.17.0 sobre <code>http://localhost:3000</code>.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="capturas/09-zap-alertas.png" alt="Tabla de alertas de ZAP">
+    <figcaption><b>Alertas.</b> Recuento por riesgo e instancias detectadas.</figcaption>
+  </figure>
+
+  <figure>
+    <img src="capturas/10-zap-detalle.png" alt="Detalle de la alerta de ausencia de token anti-CSRF">
+    <figcaption><b>Detalle.</b> Ejemplo de una de las advertencias y su descripción técnica.</figcaption>
+  </figure>
 
   <h3>Política IAM de mínimo privilegio</h3>
   <pre><code>{
@@ -423,7 +554,7 @@ function requireRole(role) {
   ]
 }</code></pre>
 
-  <h2>Conclusiones</h2>
+  <h2 class="page-break">Conclusiones</h2>
   <table>
     <thead><tr><th>Aprendizaje</th><th>Aplicación</th></tr></thead>
     <tbody>
@@ -436,6 +567,15 @@ function requireRole(role) {
     </tbody>
   </table>
 
+  <h2>Referencias</h2>
+  <ul class="refs">
+    <li>Aqua Security. (2025). <i>Trivy: Simple and Comprehensive Vulnerability Scanner for Containers</i>. <span>https://trivy.dev</span></li>
+    <li>Docker. (2025). <i>Docker: Accelerated Container Application Development</i>. <span>https://www.docker.com</span></li>
+    <li>HashiCorp. (s.f.). <i>Install Terraform</i>. <span>https://developer.hashicorp.com/terraform/install</span></li>
+    <li>LocalStack. (s.f.). <i>LocalStack Documentation</i>. <span>https://docs.localstack.cloud</span></li>
+    <li>OWASP Foundation. (2025). <i>ZAP: Zed Attack Proxy</i>. <span>https://www.zaproxy.org</span></li>
+  </ul>
+
   <h2>Evidencias y anexos</h2>
   <table>
     <thead><tr><th>Anexo</th><th>Ubicación</th></tr></thead>
@@ -445,7 +585,7 @@ function requireRole(role) {
       <tr><td>Código de la API</td><td><code>fase3/server.js</code></td></tr>
       <tr><td>Política IAM</td><td><code>fase3/iam-policy.json</code></td></tr>
       <tr><td>Diagrama editable</td><td><code>docs/arquitectura.drawio</code></td></tr>
-      <tr><td>Capturas del sitio</td><td><code>docs/capturas/</code></td></tr>
+      <tr><td>Capturas del sitio y de las herramientas</td><td><code>docs/capturas/</code> (18 imágenes)</td></tr>
     </tbody>
   </table>
 
