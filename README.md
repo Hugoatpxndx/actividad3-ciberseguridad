@@ -30,7 +30,7 @@ Laboratorio completo con tres fases: **infraestructura como código**, **segurid
 | Docker Compose | 5.7.0 | Levantar LocalStack |
 | Terraform | 1.15.9 | Infraestructura como código |
 | AWS CLI | 2.37.9 | Verificación del S3 simulado |
-| LocalStack | 2026.10.6 (`pro`, plan Hobby) | Simulador de AWS |
+| LocalStack | 2026.10.6 (`pro`, plan Freemium — antes *Hobby*) | Simulador de AWS |
 | Trivy | 0.76.2 | Escaneo de imágenes |
 | Node.js | 22.23.4 | API y sitio de la Fase 3 |
 | OWASP ZAP | `ghcr.io/zaproxy/zaproxy:stable` | Baseline scan |
@@ -69,7 +69,7 @@ Act3/
 
 ```bash
 cd fase1
-cp .env.example .env        # pega tu token de LocalStack Hobby
+cp .env.example .env        # pega tu token de LocalStack (plan gratuito)
 docker compose up -d
 terraform init
 terraform plan -out=tfplan

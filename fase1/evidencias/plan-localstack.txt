@@ -1,0 +1,22 @@
+== Plan de LocalStack (panel web) ==
+Fuente: https://app.localstack.cloud/workspace/auth-tokens
+Fecha de consulta: 2026-11-10
+Datos de cuenta y valor del token: omitidos a propósito.
+
+-- Emulator Access (extracto) --
+AWS · Freemium
+Credits used: 0
+Credits remaining: ∞
+Resets on Dec 05, 2026
+
+-- Interpretación --
+"Freemium" es el nombre actual del plan gratuito de LocalStack.
+La guía de la práctica lo llama "Hobby — Free": es el mismo plan, sin
+funciones de pago y sin prueba de Ultimate.
+
+-- Confirmación desde el emulador local --
+El contenedor arranca con licencia activa y responde:
+  edition: pro
+  version: 2026.10.6
+  s3:      available
+Ver evidencias/versiones.txt para la salida completa.

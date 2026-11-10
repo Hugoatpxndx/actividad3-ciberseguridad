@@ -30,7 +30,7 @@
 | Docker Compose | 5.7.0 | ✅ |
 | Terraform | 1.15.9 | ✅ |
 | AWS CLI | 2.37.9 | ✅ |
-| LocalStack | 2026.10.6 (`pro`, plan Hobby) | ✅ `healthy` · S3 `available` |
+| LocalStack | 2026.10.6 (`pro`, plan **Freemium** — antes *Hobby*) | ✅ `healthy` · S3 `available` |
 
 Salida completa: [`fase1/evidencias/versiones.txt`](../fase1/evidencias/versiones.txt).
 
