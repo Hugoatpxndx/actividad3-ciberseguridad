@@ -17,8 +17,25 @@ Laboratorio completo con tres fases: **infraestructura como código**, **segurid
 | Fase | Entregable | Resultado |
 |---|---|---|
 | 1 · AWS | Bucket S3 con Terraform + LocalStack | ✅ 3 recursos · AES-256 · 4/4 bloqueos públicos |
-| 2 · Imágenes | `node:14` → `node:18-alpine` con Trivy | ✅ 595 hallazgos / 23 críticas → **0 / 0** |
+| 2 · Imágenes | `node:14` → `node:18-alpine` con Trivy | ✅ 595 críticas/altas (23 críticas) → **0 / 0** |
 | 3 · Sitio/API | Login JWT + endpoints protegidos + ZAP | ✅ `401` / `403` / `200` · **0 FAIL** en ZAP |
+
+> Los conteos de Trivy corresponden a las severidades **CRITICAL y HIGH**, que es el alcance solicitado en el laboratorio.
+
+## Requisitos
+
+| Herramienta | Versión usada | Uso |
+|---|---|---|
+| Docker Engine | 29.9.3 | Contenedores LocalStack, Trivy y ZAP |
+| Docker Compose | 5.7.0 | Levantar LocalStack |
+| Terraform | 1.15.9 | Infraestructura como código |
+| AWS CLI | 2.37.9 | Verificación del S3 simulado |
+| LocalStack | 2026.10.6 (`pro`, plan Hobby) | Simulador de AWS |
+| Trivy | 0.76.2 | Escaneo de imágenes |
+| Node.js | 22.23.4 | API y sitio de la Fase 3 |
+| OWASP ZAP | `ghcr.io/zaproxy/zaproxy:stable` | Baseline scan |
+
+Versiones completas y estado del contenedor: [`fase1/evidencias/versiones.txt`](fase1/evidencias/versiones.txt).
 
 ## Estructura
 
@@ -88,6 +105,8 @@ Credenciales demo: `admin / admin123` · `usuario / usuario123`
 |---|---|
 | Terraform apply | [`fase1/evidencias/terraform-apply.txt`](fase1/evidencias/terraform-apply.txt) |
 | Cifrado y bloqueo público | [`fase1/evidencias/verificacion-s3.txt`](fase1/evidencias/verificacion-s3.txt) |
+| Versiones y LocalStack saludable | [`fase1/evidencias/versiones.txt`](fase1/evidencias/versiones.txt) |
+| Dashboard con el bucket | [`fase1/evidencias/S3.png`](fase1/evidencias/S3.png) |
 | Trivy imagen vulnerable | [`fase2/evidencias/trivy-node14.txt`](fase2/evidencias/trivy-node14.txt) |
 | Trivy imagen corregida | [`fase2/evidencias/trivy-node18.txt`](fase2/evidencias/trivy-node18.txt) |
 | Pruebas 401/403/200 | [`fase3/evidencias/pruebas-autorizacion.txt`](fase3/evidencias/pruebas-autorizacion.txt) |

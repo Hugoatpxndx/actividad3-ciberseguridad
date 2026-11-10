@@ -22,6 +22,18 @@
 
 ## 2. Fase 1 · Bucket S3 seguro con Terraform + LocalStack
 
+### Entorno verificado
+
+| Herramienta | Versión | Estado |
+|---|---|---|
+| Docker Engine | 29.9.3 | ✅ |
+| Docker Compose | 5.7.0 | ✅ |
+| Terraform | 1.15.9 | ✅ |
+| AWS CLI | 2.37.9 | ✅ |
+| LocalStack | 2026.10.6 (`pro`, plan Hobby) | ✅ `healthy` · S3 `available` |
+
+Salida completa: [`fase1/evidencias/versiones.txt`](../fase1/evidencias/versiones.txt).
+
 ### Recursos declarados
 
 | Recurso | Configuración |
@@ -43,6 +55,8 @@
 
 ![Controles de seguridad del bucket](fase1-controles.svg)
 
+![Dashboard de LocalStack con el bucket creado](../fase1/evidencias/S3.png)
+
 > **Lectura importante:** `NoSuchBucketPolicy` solo indica que no hay una política de bucket adjunta. No significa que el bucket sea público. La privacidad se sostiene con la ACL privada y los cuatro bloqueos.
 
 ### Acceso anónimo en LocalStack
@@ -53,6 +67,14 @@ x-amz-server-side-encryption: AES256
 ```
 
 LocalStack permitió la lectura anónima. Es una **limitación del simulador**: no replica todas las reglas de autorización de AWS. La respuesta confirma que el objeto está cifrado con AES-256. En AWS real, con los cuatro bloqueos activos y sin política pública, la lectura anónima se deniega.
+
+### Conclusión de la fase
+
+| Nivel | Qué se comprobó |
+|---|---|
+| Infraestructura declarada | Terraform define el bucket, `AES256` y los cuatro bloqueos públicos. |
+| Configuración consultada | AWS CLI confirma que el cifrado y los cuatro bloqueos están aplicados; la ACL es privada. |
+| Seguridad efectivamente aplicada | La prueba anónima devuelve `200` en LocalStack, una limitación del simulador; en AWS real la combinación de bloqueos y ausencia de política pública denegaría la lectura. |
 
 **Evidencias:** [`fase1/evidencias/`](../fase1/evidencias/)
 
@@ -66,6 +88,8 @@ LocalStack permitió la lectura anónima. Es una **limitación del simulador**: 
 |---|---:|---:|---:|---:|---:|
 | `act3-app:node14` | 566 | 29 | **595** | **23** | **572** |
 | `act3-app:node18` | 0 | 0 | **0** | **0** | **0** |
+
+> **Alcance:** los conteos corresponden a las severidades **CRITICAL y HIGH** (`trivy image --severity CRITICAL,HIGH`). No incluyen MEDIUM ni LOW.
 
 ![Antes y después de Trivy](fase2-trivy.svg)
 
@@ -103,6 +127,8 @@ CMD ["node", "server.js"]
 **Evidencias:** [`fase2/evidencias/`](../fase2/evidencias/)
 
 > **Nota:** la actividad pide `node:18`. A noviembre de 2026 Node 18 ya está fuera de soporte; para un proyecto real se recomienda `node:22-alpine` o superior.
+>
+> **Limitación del escaneo:** Trivy reportó `0` críticas/altas, pero también advirtió que la base Alpine 3.21 ya no recibe actualizaciones de seguridad. El resultado es válido para la base y el estado actual de la base de datos de Trivy, pero no garantiza ausencia de vulnerabilidades futuras. En producción se debe usar una base soportada y reescanear en CI.
 
 ---
 

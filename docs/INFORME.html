@@ -234,6 +234,19 @@
   <h2 class="page-break">Fase 1 · Bucket S3 seguro</h2>
   <img src="fase1-controles.svg" alt="Controles del bucket S3">
 
+  <h3>Entorno verificado</h3>
+  <table>
+    <thead><tr><th>Herramienta</th><th>Versión</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr><td>Docker Engine</td><td>29.9.3</td><td class="ok">OK</td></tr>
+      <tr><td>Docker Compose</td><td>5.7.0</td><td class="ok">OK</td></tr>
+      <tr><td>Terraform</td><td>1.15.9</td><td class="ok">OK</td></tr>
+      <tr><td>AWS CLI</td><td>2.37.9</td><td class="ok">OK</td></tr>
+      <tr><td>LocalStack</td><td>2026.10.6 (<code>pro</code>, plan Hobby)</td><td class="ok">healthy · S3 available</td></tr>
+    </tbody>
+  </table>
+  <p class="small">Salida completa: <code>fase1/evidencias/versiones.txt</code>.</p>
+
   <h3>Recursos declarados</h3>
   <table>
     <thead><tr><th>Recurso</th><th>Configuración</th></tr></thead>
@@ -261,10 +274,23 @@
     <strong>Lectura importante:</strong> <code>NoSuchBucketPolicy</code> solo indica que no hay una política de bucket adjunta. No significa que el bucket sea público. La privacidad se sostiene con la ACL privada y los cuatro bloqueos.
   </div>
 
+  <h3>Dashboard con el bucket creado</h3>
+  <img src="../fase1/evidencias/S3.png" alt="Dashboard de LocalStack con el bucket actividad3-seguro-local">
+
   <h3>Acceso anónimo en LocalStack</h3>
   <pre><code>HTTP/1.1 200 OK
 x-amz-server-side-encryption: AES256</code></pre>
   <p>LocalStack permitió la lectura anónima. Es una <strong>limitación del simulador</strong>: no replica todas las reglas de autorización de AWS. La respuesta confirma que el objeto está cifrado con AES-256. En AWS real, con los cuatro bloqueos activos y sin política pública, la lectura anónima se deniega.</p>
+
+  <h3>Conclusión de la fase</h3>
+  <table>
+    <thead><tr><th>Nivel</th><th>Qué se comprobó</th></tr></thead>
+    <tbody>
+      <tr><td>Infraestructura declarada</td><td>Terraform define el bucket, <code>AES256</code> y los cuatro bloqueos públicos.</td></tr>
+      <tr><td>Configuración consultada</td><td>AWS CLI confirma que el cifrado y los cuatro bloqueos están aplicados; la ACL es privada.</td></tr>
+      <tr><td>Seguridad efectivamente aplicada</td><td>La prueba anónima devuelve <code>200</code> en LocalStack, una limitación del simulador; en AWS real la combinación de bloqueos y ausencia de política pública denegaría la lectura.</td></tr>
+    </tbody>
+  </table>
 
   <h2 class="page-break">Fase 2 · Seguridad de contenedores</h2>
   <img src="fase2-trivy.svg" alt="Comparación de vulnerabilidades">
@@ -278,6 +304,8 @@ x-amz-server-side-encryption: AES256</code></pre>
       <tr><td><code>act3-app:node18</code></td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num ok">0</td><td class="num ok">0</td></tr>
     </tbody>
   </table>
+
+  <p class="small"><strong>Alcance:</strong> los conteos corresponden a las severidades <strong>CRITICAL y HIGH</strong> (<code>trivy image --severity CRITICAL,HIGH</code>). No incluyen MEDIUM ni LOW.</p>
 
   <h3>Mitigaciones aplicadas</h3>
   <table>
@@ -311,6 +339,9 @@ CMD ["node", "server.js"]</code></pre>
 
   <div class="note">
     La actividad pide <code>node:18</code>. A noviembre de 2026 Node 18 ya está fuera de soporte; para un proyecto real se recomienda <code>node:22-alpine</code> o superior.
+  </div>
+  <div class="note">
+    <strong>Limitación del escaneo:</strong> Trivy reportó <code>0</code> críticas/altas, pero también advirtió que la base Alpine 3.21 ya no recibe actualizaciones de seguridad. El resultado es válido para la base y el estado actual de la base de datos de Trivy, pero no garantiza ausencia de vulnerabilidades futuras. En producción se debe usar una base soportada y reescanear en CI.
   </div>
 
   <h2 class="page-break">Fase 3 · Sitio y API con JWT</h2>

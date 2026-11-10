@@ -20,6 +20,32 @@ Bucket S3 simulado en LocalStack, creado con Terraform, con **cifrado AES-256** 
 
 > **Limitación del simulador:** LocalStack no aplica todas las reglas de autorización de AWS. El bloqueo público está declarado y consultado correctamente, pero una lectura anónima puede responder `200`. En AWS real, con los cuatro controles activos y sin política pública, la lectura anónima se deniega.
 
+## Requisitos
+
+| Herramienta | Versión usada |
+|---|---|
+| Docker Engine | 29.9.3 |
+| Docker Compose | 5.7.0 |
+| Terraform | 1.15.9 |
+| AWS CLI | 2.37.9 |
+| LocalStack | 2026.10.6 (`pro`, plan Hobby) |
+
+Salida completa: [`evidencias/versiones.txt`](evidencias/versiones.txt).
+
+## Checklist de evidencias
+
+| Evidencia solicitada | Archivo |
+|---|---|
+| Versiones de herramientas y LocalStack saludable | [`evidencias/versiones.txt`](evidencias/versiones.txt) |
+| Archivos de configuración sin credenciales | `compose.yaml`, `providers.tf`, `main.tf`, `.env.example` |
+| Validación, plan y aplicación de Terraform | [`evidencias/terraform-validate.txt`](evidencias/terraform-validate.txt), [`evidencias/terraform-plan.txt`](evidencias/terraform-plan.txt), [`evidencias/terraform-apply.txt`](evidencias/terraform-apply.txt) |
+| Cifrado AES-256 y 4 controles de bloqueo | [`evidencias/verificacion-s3.txt`](evidencias/verificacion-s3.txt) |
+| Carga del archivo y acceso anónimo | [`evidencias/subida-archivo.txt`](evidencias/subida-archivo.txt), [`evidencias/acceso-anonimo.txt`](evidencias/acceso-anonimo.txt) |
+| Dashboard con el bucket creado | [`evidencias/S3.png`](evidencias/S3.png) |
+| Repositorio público verificado | <https://github.com/Hugoatpxndx/actividad3-ciberseguridad> |
+
+> **Pendiente del estudiante:** la captura del plan Hobby dentro de la cuenta de LocalStack no se incluye porque contiene datos de la cuenta. El plan usado (`pro`, Hobby) queda registrado en `evidencias/versiones.txt`.
+
 ## Recursos creados
 
 | Recurso Terraform | Función |

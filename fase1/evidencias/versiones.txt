@@ -1,0 +1,31 @@
+== Fecha de la verificación ==
+2026-11-09T23:40:09-06:00
+
+== Docker ==
+Docker version 29.9.3, build 5457199aa5
+Docker Compose version 5.7.0
+
+== Terraform ==
+Terraform v1.15.9
+on linux_amd64
+
+== AWS CLI ==
+aws-cli/2.37.9 Python/3.14.9 Linux/7.3.3-1-cachyos source/x86_64.cachyos
+
+== Node.js / npm ==
+v22.23.4
+12.2.2
+
+== Trivy ==
+Version: 0.76.2
+Vulnerability DB:
+
+== LocalStack ==
+localstack-act3 | localstack/localstack:latest | Up 25 seconds (healthy) | 53/tcp, 443/tcp, 4510-4559/tcp, 5678/tcp, 127.0.0.1:4566->4566/tcp
+
+== Salud LocalStack ==
+{
+  "edition": "pro",
+  "version": "2026.10.6",
+  "s3": "available"
+}
