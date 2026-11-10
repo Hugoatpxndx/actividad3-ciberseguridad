@@ -2,7 +2,8 @@
 
 **Alumno:** Hugo Ruiz  
 **Materia:** Ciberseguridad  
-**Fecha:** noviembre de 2026
+**Fecha:** noviembre de 2026  
+**Repositorio:** <https://github.com/Hugoatpxndx/actividad3-ciberseguridad>
 
 | Fase | Tema | Herramientas | Resultado clave |
 |---|---|---|---|
@@ -50,6 +51,7 @@ Salida completa: [`fase1/evidencias/versiones.txt`](../fase1/evidencias/versione
 
 | Consulta | Resultado |
 |---|---|
+| `terraform validate` | `Success! The configuration is valid` |
 | `terraform apply` | `3 added, 0 changed, 0 destroyed` |
 | `get-bucket-encryption` | `"SSEAlgorithm": "AES256"` |
 | `get-public-access-block` | `BlockPublicAcls`, `IgnorePublicAcls`, `BlockPublicPolicy`, `RestrictPublicBuckets` = `true` |
@@ -72,6 +74,10 @@ Salida completa: [`fase1/evidencias/versiones.txt`](../fase1/evidencias/versione
 ![Dashboard de LocalStack con el bucket creado](../fase1/evidencias/S3.png)
 
 > **Lectura importante:** `NoSuchBucketPolicy` solo indica que no hay una política de bucket adjunta. No significa que el bucket sea público. La privacidad se sostiene con la ACL privada y los cuatro bloqueos.
+
+### Carga del archivo de prueba
+
+![Carga del archivo de prueba y listado del bucket](capturas/16-subida-archivo.png)
 
 ### Acceso anónimo en LocalStack
 
@@ -306,4 +312,4 @@ Las 3 advertencias son de bajo riesgo: contenido no almacenable, formulario de l
 | Código de la API | [`fase3/server.js`](../fase3/server.js) |
 | Política IAM | [`fase3/iam-policy.json`](../fase3/iam-policy.json) |
 | Diagrama editable | [`arquitectura.drawio`](arquitectura.drawio) |
-| Capturas del sitio y de las herramientas | [`capturas/`](capturas/) — 18 imágenes |
+| Capturas del sitio y de las herramientas | [`capturas/`](capturas/) — 19 imágenes |

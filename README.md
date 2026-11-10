@@ -10,6 +10,8 @@
 
 Laboratorio completo con tres fases: **infraestructura como código**, **seguridad de imágenes** y **API segura con JWT**.
 
+**Repositorio:** <https://github.com/Hugoatpxndx/actividad3-ciberseguridad>
+
 ![Arquitectura](docs/arquitectura.svg)
 
 ## Resultados en 30 segundos
@@ -111,7 +113,7 @@ Credenciales demo: `admin / admin123` · `usuario / usuario123`
 | Trivy imagen corregida | [`fase2/evidencias/trivy-node18.txt`](fase2/evidencias/trivy-node18.txt) |
 | Pruebas 401/403/200 | [`fase3/evidencias/pruebas-autorizacion.txt`](fase3/evidencias/pruebas-autorizacion.txt) |
 | Reporte ZAP | [`fase3/evidencias/zap-baseline.html`](fase3/evidencias/zap-baseline.html) |
-| Capturas del sitio y de las herramientas | [`docs/capturas/`](docs/capturas/) — 18 imágenes |
+| Capturas del sitio y de las herramientas | [`docs/capturas/`](docs/capturas/) — 19 imágenes |
 
 ## Informe
 

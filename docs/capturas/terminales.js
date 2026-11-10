@@ -102,6 +102,7 @@ const verif = read('fase1/evidencias/verificacion-s3.txt');
 const trivy14 = read('fase2/evidencias/trivy-node14.txt');
 const trivy18 = read('fase2/evidencias/trivy-node18.txt');
 const curl = read('fase3/evidencias/pruebas-autorizacion.txt');
+const subida = read('fase1/evidencias/subida-archivo.txt');
 
 const cards = [];
 
@@ -234,6 +235,22 @@ cards.push({
   subtitle: '200 · 401 · 403',
   lines: c15,
   wrap: true
+});
+
+// 16 · Carga del archivo de prueba y listado del bucket
+const c16 = [
+  '$ aws --endpoint-url=http://localhost:4566 s3 cp archivo-prueba.txt s3://actividad3-seguro-local/',
+  'upload: ./archivo-prueba.txt to s3://actividad3-seguro-local/archivo-prueba.txt',
+  '',
+  '$ aws --endpoint-url=http://localhost:4566 s3 ls s3://actividad3-seguro-local/',
+  '2026-11-08 16:27:12         36 archivo-prueba.txt'
+];
+validate(c16, 'fase1/evidencias/subida-archivo.txt', '16-subida-archivo');
+cards.push({
+  file: '16-subida-archivo.png',
+  title: 'aws s3 · carga y listado',
+  subtitle: 'archivo de prueba dentro del bucket',
+  lines: c16
 });
 
 // ---------------------------------------------------------------- capturas

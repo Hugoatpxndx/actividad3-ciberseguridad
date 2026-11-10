@@ -108,6 +108,8 @@
       font-size: 14px;
     }
     .meta span { color: #8fa2bd; }
+    .meta .repo { font-size: 11.5px; line-height: 1.5; }
+    .meta a { color: #45e0b7; text-decoration: none; }
     .pill {
       display: inline-block;
       margin: 4px 6px 0 0;
@@ -233,6 +235,7 @@
         <div><span>Alumno:</span> Hugo Ruiz</div>
         <div><span>Materia:</span> Ciberseguridad</div>
         <div><span>Fecha:</span> noviembre de 2026</div>
+        <div class="repo"><span>Repositorio:</span><br><a href="https://github.com/Hugoatpxndx/actividad3-ciberseguridad">github.com/Hugoatpxndx/actividad3-ciberseguridad</a></div>
       </div>
     </div>
     <div>
@@ -313,6 +316,7 @@
   <table>
     <thead><tr><th>Consulta</th><th>Resultado</th></tr></thead>
     <tbody>
+      <tr><td><code>terraform validate</code></td><td class="ok">Success! The configuration is valid</td></tr>
       <tr><td><code>terraform apply</code></td><td class="ok">3 added, 0 changed, 0 destroyed</td></tr>
       <tr><td><code>get-bucket-encryption</code></td><td class="ok">"SSEAlgorithm": "AES256"</td></tr>
       <tr><td><code>get-public-access-block</code></td><td class="ok">4/4 en true</td></tr>
@@ -342,6 +346,12 @@
   <figure style="max-width: 135mm; margin-left: auto; margin-right: auto;">
     <img src="../fase1/evidencias/S3.png" alt="Dashboard de LocalStack con el bucket actividad3-seguro-local">
     <figcaption><b>LocalStack.</b> El bucket <code>actividad3-seguro-local</code> visible en el panel web del emulador.</figcaption>
+  </figure>
+
+  <h3>Carga del archivo de prueba</h3>
+  <figure class="term">
+    <img src="capturas/16-subida-archivo.png" alt="Carga del archivo de prueba y listado del bucket">
+    <figcaption><b>aws s3.</b> El archivo de prueba se sube al bucket y aparece en el listado. Extracto de <code>fase1/evidencias/subida-archivo.txt</code>.</figcaption>
   </figure>
 
   <h3>Acceso anónimo en LocalStack</h3>
@@ -591,7 +601,8 @@ function requireRole(role) {
       <tr><td>Código de la API</td><td><code>fase3/server.js</code></td></tr>
       <tr><td>Política IAM</td><td><code>fase3/iam-policy.json</code></td></tr>
       <tr><td>Diagrama editable</td><td><code>docs/arquitectura.drawio</code></td></tr>
-      <tr><td>Capturas del sitio y de las herramientas</td><td><code>docs/capturas/</code> (18 imágenes)</td></tr>
+      <tr><td>Capturas del sitio y de las herramientas</td><td><code>docs/capturas/</code> (19 imágenes)</td></tr>
+      <tr><td>Repositorio público verificado</td><td><a href="https://github.com/Hugoatpxndx/actividad3-ciberseguridad">github.com/Hugoatpxndx/actividad3-ciberseguridad</a></td></tr>
     </tbody>
   </table>
 
